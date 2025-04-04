@@ -32,6 +32,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(morgan("dev"));
+
+const storedHash = "$2a$10$7n85vhO.UpQWcraNXednJuQcLKs9tmzcbktILhH.ZtozRBAq/Zk8C"; // Replace with actual hashed password from DB
+const enteredPassword = "123456"; // Replace with a real user input password
+
+bcrypt.compare(enteredPassword, storedHash).then((isMatch) => {
+  console.log("Password Match:", isMatch);
+});
+
 app.use("/api", routes);
 
 app.use(routeNotFound);
