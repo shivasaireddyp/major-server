@@ -15,7 +15,7 @@ const loginUser = asyncHandler(async (req, res) => {
       .json({ status: false, message: "Please enter correct credentials" });
   }
 
-  console.log("this is the user request",user.name)
+  // console.log("this is the user request",user.name)
 
 
   if (!user?.isActive) {
@@ -26,7 +26,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const isMatch = await user.matchPassword(password);
-  console.log("passwords match:",isMatch)
+  // console.log("passwords match:",isMatch)
   if (user && isMatch) {
     createJWT(res, user._id);
 
