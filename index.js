@@ -12,6 +12,7 @@ dotenv.config();
 dbConnection();
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 5000;
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
@@ -24,7 +25,8 @@ app.use(
   })
 );
 
-app.use(express.json());
+app.options("*", cors());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
