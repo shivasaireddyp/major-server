@@ -8,7 +8,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
+  console.log("this is the user request",user)
   if (!user) {
     return res
       .status(401)
