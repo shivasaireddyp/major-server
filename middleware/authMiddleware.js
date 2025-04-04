@@ -9,7 +9,7 @@ const protectRoute = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
+      console.log("the decode token is : ",decodedToken)
       const resp = await User.findById(decodedToken.userId).select(
         "isAdmin email"
       );
