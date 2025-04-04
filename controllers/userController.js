@@ -12,7 +12,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!user.name) {
     return res
       .status(401)
-      .json({ status: false, message: "Invalid email or password." });
+      .json({ status: false, message: "Please enter correct credentials" });
   }
 
   if (!user?.isActive) {
