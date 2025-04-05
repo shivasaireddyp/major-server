@@ -24,7 +24,7 @@ const protectRoute = asyncHandler(async (req, res, next) => {
     } catch (error) {
       console.error(error);
       return res
-        .status(401)
+        .status(403)
         .json({ status: false, message: "Not authorized. Try login again." });
     }
   } else {
