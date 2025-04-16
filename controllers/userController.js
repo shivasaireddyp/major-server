@@ -21,6 +21,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const isMatch = await user.matchPassword(password);
   if (user && isMatch) {
     createJWT(res, user._id);
+    console.log("Headers after cookie set:", res.getHeaders());
     user.password = undefined;
     res.status(200).json(user);
   } else {
