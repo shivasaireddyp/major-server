@@ -6,32 +6,22 @@ import createJWT from "../utils/index.js";
 // POST request - login user
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
-  // console.log("this is the user request",user.name)
   if (!user) {
     return res
       .status(401)
       .json({ status: false, message: "Please enter correct credentials" });
   }
-
-  // console.log("this is the user request",user.name)
-
-
   if (!user?.isActive) {
     return res.status(401).json({
       status: false,
       message: "User account has been deactivated, contact the administrator",
     });
   }
-
   const isMatch = await user.matchPassword(password);
-  // console.log("passwords match:",isMatch)
   if (user && isMatch) {
     createJWT(res, user._id);
-
     user.password = undefined;
-
     res.status(200).json(user);
   } else {
     return res
@@ -43,15 +33,12 @@ const loginUser = asyncHandler(async (req, res) => {
 // POST - Register a new user
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, isAdmin, role, title } = req.body;
-
   const userExists = await User.findOne({ email });
-
   if (userExists) {
     return res
       .status(400)
       .json({ status: false, message: "Email address already exists" });
   }
-
   const user = await User.create({
     name,
     email,
@@ -60,12 +47,9 @@ const registerUser = asyncHandler(async (req, res) => {
     role,
     title,
   });
-
   if (user) {
     isAdmin ? createJWT(res, user._id) : null;
-
     user.password = undefined;
-
     res.status(201).json(user);
   } else {
     return res
